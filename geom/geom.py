@@ -5,6 +5,7 @@ class Geom(object):
     def __init__(self, args):
         self.pts = []
         self.lines = []
+        self.linelength = []
         for arg in args:
             self.pts.append(arg)
         # self.x = None
@@ -15,7 +16,7 @@ class Geom(object):
     def __str__(self):
         return f'Points {self.pts}'
 
-    def groupLines(self, ptsLines):
+    def __groupLines(self, ptsLines):
         for index, pt in enumerate(ptsLines):
             line = []
             line.append(ptsLines[index])
@@ -27,18 +28,31 @@ class Geom(object):
             self.lines.append(line)
 
         if len(self.lines) == 2:
-            return self.lines[0]
+            self.lines = [self.lines[0]]
+            return self.lines
 
             # print(line)
         # print(self.lines)
         return self.lines
 
     def length(self):
-        lines = self.groupLines(self.pts)
-        print(lines)
-        return 0.0
+        lines = self.__groupLines(self.pts)
+        # print(lines)
+        for line in lines:
+            pt1, pt2 = line
+
+            pt1sq = (pt1[0] - pt2[0])**2
+            pt2sq = (pt1[1]-pt2[1])**2
+            dist_Line = round(math.sqrt((pt1sq + pt2sq)), 3)
+            self.linelength.append(dist_Line)
+        # print(self.linelength)
+        # print(sum(self.linelength))
+        perimeter = sum(self.linelength)
+        return perimeter
 
     def area(self):
+        print(self.linelength)
+
         return 0.0
 
     def centroid(self):
