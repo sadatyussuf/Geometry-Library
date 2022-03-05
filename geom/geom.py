@@ -2,14 +2,15 @@ import math
 
 
 class Geom(object):
-    def __init__(self, args):
+    def __init__(self, args=None):
         self.coordinates = []
         self.lines = []
         self.linelength = []
         self.Northerns = []
         self.Easterns = []
-        for arg in args:
-            self.coordinates.append(arg)
+        if args is not None:
+            for arg in args:
+                self.coordinates.append(arg)
 
     def __str__(self):
         return f'Points {self.pts}'
